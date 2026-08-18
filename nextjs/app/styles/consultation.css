@@ -1,0 +1,60 @@
+/* Consultation section sizing + alignment to match design reference */
+.offer#consultation{
+  padding:84px 0;
+}
+.offer#consultation .wrap.split{
+  align-items:flex-start;
+  gap:56px;
+}
+.offer#consultation .eyebrow{
+  font-size:11px;
+  letter-spacing:.14em;
+  margin-bottom:14px;
+}
+.offer#consultation h2{
+  font-size:40px;
+  line-height:.98;
+  letter-spacing:-.045em;
+  max-width:660px;
+}
+.offer#consultation .lead{
+  font-size:19px;
+  line-height:1.56;
+  color:#425868;
+  max-width:620px;
+}
+.offer#consultation .hero-actions{
+  margin-top:26px;
+}
+.offer#consultation .hero-actions .btn{
+  min-height:58px;
+  padding:0 32px;
+  font-size:16px;
+  font-weight:800;
+}
+.offer#consultation .offer-stack{
+  gap:14px;
+}
+.offer#consultation .offer-item{
+  border-radius:20px;
+  padding:20px 18px;
+  font-size:16px;
+  line-height:1.35;
+  font-weight:800;
+  box-shadow:none;
+  border-color:#eadfc9;
+}
+@media(max-width:1200px){
+  .offer#consultation h2{font-size:40px}
+  .offer#consultation .lead{font-size:17px}
+  .offer#consultation .offer-item{font-size:16px}
+}
+@media(max-width:980px){
+  .offer#consultation{padding:68px 0}
+  .offer#consultation .wrap.split{gap:28px}
+  .offer#consultation h2{font-size:40px;max-width:none}
+  .offer#consultation .lead{font-size:16px;max-width:none}
+  .offer#consultation .hero-actions .btn{min-height:52px;font-size:15px}
+  .offer#consultation .offer-item{font-size:16px;padding:18px 16px}
+}
+

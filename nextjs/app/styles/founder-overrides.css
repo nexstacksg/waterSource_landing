@@ -1,0 +1,24 @@
+#founder.founder{
+  height:auto;
+  min-height:100vh;
+  overflow:visible;
+}
+
+#founder .founder-grid{
+  height:auto;
+  min-height:0;
+  align-items:start;
+}
+
+#founder .founder-side{
+  height:auto;
+}
+
+#founder .founder-side-note{
+  max-width:430px;
+  padding-bottom:8px;
+}
+
+#founder .founder-side-note p:last-child{
+  margin-bottom:0;
+}
