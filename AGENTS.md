@@ -1,46 +1,43 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-This repository is a static marketing site.
-- `index.html`: primary production landing page.
-- `html/`: alternate design iterations (for example, `watersource_conversion_revamp_v1.html`).
-- `assets/`: image assets referenced by page templates.
-- `.nojekyll`: keeps static hosting behavior predictable.
-
-Keep new media in `assets/` and update relative paths in HTML (`assets/<file-name>`). For major experiments, add a new file in `html/` instead of overwriting `index.html` first.
+The production application lives in `web/` and uses Next.js App Router with
+TypeScript. Route pages and API handlers are in `web/app/`; reusable sections
+and shop UI are in `web/components/`; server integrations are in `web/lib/`.
+Shared styles live in `web/app/styles/`, tests in `web/tests/`, and deployable
+images in `web/public/assets/`.
 
 ## Build, Test, and Development Commands
-No build pipeline is required; pages are plain HTML/CSS.
-- `python3 -m http.server 8080`: run a local preview server.
-- `open index.html`: quick local open (without server).
-- `git status`: verify changed files before commit.
+Run commands from `web/`:
 
-If port `8080` is busy, use another port (for example `python3 -m http.server 8081`).
+- `npm install`: install dependencies.
+- `npm run dev`: start the local server at `http://localhost:3000`.
+- `npm run lint`: run ESLint with the Next.js ruleset.
+- `npm run typecheck`: validate TypeScript without emitting files.
+- `npm run test:hitpay`: run checkout and webhook integration tests.
+- `npm run build`: create the production build and validate routes.
 
 ## Coding Style & Naming Conventions
-- Use 2-space indentation in HTML/CSS blocks already present in the project.
-- Prefer semantic section IDs and classes (`#why-watersource`, `.founder-card`).
-- Use lowercase, hyphenated filenames for new assets and HTML variants (`new-section-v2.html`).
-- Keep inline styles minimal; prefer grouped `<style>` updates for consistency.
+Use TypeScript and 2-space indentation. Name React components in PascalCase
+(`ShopClient.tsx`), helpers in camelCase, and route folders in lowercase.
+Prefer server components unless browser state or event handlers require
+`"use client"`. Keep secrets and privileged API calls in server-only modules.
+Run ESLint and Prettier before submitting substantial changes.
 
 ## Testing Guidelines
-There is no automated test suite configured in this repository.
-Run a manual validation pass before opening a PR:
-- Load page on desktop and mobile widths.
-- Verify all images load and no broken `assets/` paths exist.
-- Check anchor links, CTA buttons, and section spacing.
-- Confirm no obvious console errors in browser DevTools.
+Place tests in `web/tests/` with the `*.test.ts` suffix. Add coverage when
+changing HitPay signatures, payment state transitions, or Evergreen order
+creation. Before a PR, run lint, typecheck, tests, and build. Manually verify
+responsive layouts, navigation, cart behavior, and the sandbox checkout flow.
 
 ## Commit & Pull Request Guidelines
-Recent history uses concise, imperative commit subjects with optional scope prefixes:
-- `style: improve functional water section layout`
-- `copy: update consultation value to 399`
-- `Refine footer disclaimer copy`
+History favors concise imperative subjects, often scoped, such as
+`style: update product layout` or `content: revise product features`. Keep each
+commit focused. PRs should explain the purpose, identify affected routes,
+link relevant issues, list validation results, and include before/after
+screenshots for visual changes.
 
-Follow this pattern: `<scope>: <change summary>` when possible (`style`, `copy`, `layout`, `assets`).
-
-For PRs, include:
-- Purpose and sections changed.
-- Before/after screenshots for visual edits.
-- Any content-source notes for copy updates.
-- A short manual test checklist with results.
+## Security & Configuration
+Copy `web/.env.example` to `.env.local`; never commit API keys or webhook salts.
+Use HitPay sandbox credentials locally. Payment success must be verified
+server-side before Evergreen customer or sales records are created.
