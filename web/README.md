@@ -1,6 +1,6 @@
 # WaterSource Next.js Site
 
-This folder contains the TypeScript Next.js migration of the production WaterSource landing page. The original static implementation remains in the repository root as a reference.
+This folder contains the production TypeScript Next.js WaterSource site.
 
 ## Development
 
@@ -50,10 +50,6 @@ npm run typecheck
 npm run build
 ```
 
-The app uses the Next.js App Router. Static page fragments are typed React components in `components/`, shared styles are under `app/styles/`, and site images are served from `public/assets/`.
-
-To regenerate the React section components from the original static fragments, run:
-
-```bash
-npm run generate:components
-```
+The app uses the Next.js App Router. Page sections are typed React components in
+`components/`, shared styles are under `app/styles/`, and site images are served
+from `public/assets/`.

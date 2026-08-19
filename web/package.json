@@ -9,7 +9,6 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test:hitpay": "node --import tsx --test tests/hitpay.test.ts",
-    "generate:components": "tsx scripts/convert-components.ts",
     "format": "prettier --write ."
   },
   "dependencies": {

@@ -253,9 +253,10 @@ export default function ShopClient() {
             </div>
             <span>03</span>
             <div>
-              <b>Complete your purchase</b>
+              <b>We’ll take care of the rest</b>
               <small>
-                Verified payment creates your customer and sale record.
+                We’ll confirm your order and contact you about delivery and
+                installation.
               </small>
             </div>
           </div>

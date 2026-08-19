@@ -83,12 +83,10 @@ export default async function PaymentResultPage({ searchParams }: PageProps) {
               <p className="eyebrow">Payment confirmed</p>
               <h1>Thank you for your purchase.</h1>
               <p>
-                HitPay confirmed your payment of {payment.amount} SGD. Your
-                Evergreen customer, invoice, and sales history have been
+                Your payment of {payment.amount} SGD was confirmed. {" "}
                 {orderFinalized
-                  ? " created successfully"
-                  : " queued for finalization"}
-                .
+                  ? "Your order is confirmed, and our team will contact you to arrange delivery and installation."
+                  : "We’re finalizing your order now, and our team will contact you with the next steps."}
               </p>
               <b>Reference: {payment.reference_number}</b>
             </>
@@ -112,9 +110,8 @@ export default async function PaymentResultPage({ searchParams }: PageProps) {
                   : "Your order is still unpaid."}
               </h1>
               <p>
-                No customer sale or sales-history entry has been created. Return
-                to the shop to try again, or contact WaterSource if you were
-                charged.
+                Your order has not been confirmed. Return to the shop to try
+                again, or contact WaterSource if you were charged.
               </p>
             </>
           )}
