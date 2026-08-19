@@ -1,0 +1,74 @@
+name: Staging
+
+on:
+  push:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: staging
+    environment: staging
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          clean: false
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24.x
+
+      - name: Prepare environment file
+        working-directory: ./web
+        env:
+          NEXT_PUBLIC_API_BASE_URL: ${{ vars.NEXT_PUBLIC_API_BASE_URL }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.NEXT_PUBLIC_SITE_URL }}
+          HITPAY_API_BASE_URL: ${{ vars.HITPAY_API_BASE_URL }}
+          HITPAY_API_KEY: ${{ secrets.HITPAY_API_KEY }}
+          HITPAY_WEBHOOK_SALT: ${{ secrets.HITPAY_WEBHOOK_SALT }}
+          HITPAY_PAYMENT_METHODS: ${{ vars.HITPAY_PAYMENT_METHODS }}
+        run: |
+          if [ -z "$NEXT_PUBLIC_API_BASE_URL" ]; then
+            echo "Missing required GitHub variable: NEXT_PUBLIC_API_BASE_URL"
+            exit 1
+          fi
+
+          {
+            printf 'NEXT_PUBLIC_API_BASE_URL=%s\n' "$NEXT_PUBLIC_API_BASE_URL"
+            printf 'NEXT_PUBLIC_SITE_URL=%s\n' "$NEXT_PUBLIC_SITE_URL"
+            printf 'HITPAY_API_BASE_URL="%s"\n' "$HITPAY_API_BASE_URL"
+            printf 'HITPAY_PAYMENT_METHODS="%s"\n' "$HITPAY_PAYMENT_METHODS"
+            printf 'HITPAY_API_KEY="%s"\n' "$HITPAY_API_KEY"
+            printf 'HITPAY_WEBHOOK_SALT="%s"\n' "$HITPAY_WEBHOOK_SALT"
+          } > .env.local
+
+          chmod 600 .env.local
+
+      - name: Install dependencies
+        working-directory: ./web
+        run: npm install
+
+      - name: Install PM2
+        run: |
+          npm install -g pm2
+          pm2 --version
+
+      - name: Build apps
+        working-directory: ./web
+        run: |
+          set -a
+          source .env.local
+          set +a
+          npm run build
+
+      - name: Check PM2 status before
+        run: pm2 status || true
+
+      - name: Restart services
+        run: pm2 startOrRestart ecosystem.config.cjs --update-env
+
+      - name: Sync PM2
+        run: pm2 save
