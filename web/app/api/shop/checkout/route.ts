@@ -6,6 +6,7 @@ import {
   type ShopProduct,
 } from "@/lib/shop";
 import { createHitPayPaymentRequest, isHitPayConfigured } from "@/lib/hitpay";
+import { resolveCheckoutSiteUrl } from "@/lib/site-url";
 
 type ApiRecord = { id: number; [key: string]: unknown };
 
@@ -155,9 +156,7 @@ export async function POST(request: Request) {
     );
 
     const hitPayReference = `WSQ-${quotationPayload.data.id}-${quotationNumber}`;
-    const siteUrl = (
-      process.env.NEXT_PUBLIC_SITE_URL ?? new URL(request.url).origin
-    ).replace(/\/$/, "");
+    const siteUrl = resolveCheckoutSiteUrl(request);
     let paymentRequest;
     try {
       paymentRequest = await createHitPayPaymentRequest({
