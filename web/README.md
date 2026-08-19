@@ -37,8 +37,10 @@ sales-history document. The payment-result page also verifies the payment
 server-to-server as a fallback if webhook delivery is delayed. The quotation is
 accepted only after HitPay confirms payment; browser query parameters alone
 never mark an order as paid.
-HitPay returns local checkouts to the request's localhost origin. Deployed
-checkouts return to `NEXT_PUBLIC_SITE_URL`.
+In development, HitPay returns local checkouts to the request's localhost
+origin. Production checkouts always return to `NEXT_PUBLIC_SITE_URL`, even when
+the application server receives an internal `https://localhost` URL from a
+reverse proxy.
 
 Use sandbox credentials during development. For production, change
 `HITPAY_API_BASE_URL` to `https://api.hit-pay.com/v1` and use the matching live

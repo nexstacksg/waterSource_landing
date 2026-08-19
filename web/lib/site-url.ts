@@ -13,10 +13,17 @@ function configuredSiteOrigin() {
   }
 }
 
-export function resolveCheckoutSiteUrl(request: Request) {
+export function resolveCheckoutSiteUrl(
+  request: Request,
+  environment = process.env.NODE_ENV,
+) {
   const requestUrl = new URL(request.url);
 
-  if (LOCAL_HOSTNAMES.has(requestUrl.hostname)) {
+  if (
+    environment !== "production" &&
+    requestUrl.protocol === "http:" &&
+    LOCAL_HOSTNAMES.has(requestUrl.hostname)
+  ) {
     return requestUrl.origin;
   }
 
