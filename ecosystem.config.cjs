@@ -1,8 +1,9 @@
+const path = require("node:path");
 module.exports = {
   apps: [
     {
       name: "watersource-landing",
-      script: "pnpm",
+      script: "npm",
       args: "start",
       cwd: path.resolve(__dirname, "web"),
       instances: 1,
