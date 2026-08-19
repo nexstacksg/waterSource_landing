@@ -17,7 +17,7 @@ Copy `.env.example` to `.env.local` and configure:
 
 ```bash
 NEXT_PUBLIC_API_BASE_URL=https://evergreen-api.nexstack.sg
-NEXT_PUBLIC_SITE_URL=http://localhost:3000
+NEXT_PUBLIC_SITE_URL=https://watersource-website.nexstack.sg
 HITPAY_API_BASE_URL=https://api.sandbox.hit-pay.com/v1
 HITPAY_API_KEY=<sandbox-business-api-key>
 HITPAY_WEBHOOK_SALT=<sandbox-webhook-salt>
@@ -37,6 +37,8 @@ sales-history document. The payment-result page also verifies the payment
 server-to-server as a fallback if webhook delivery is delayed. The quotation is
 accepted only after HitPay confirms payment; browser query parameters alone
 never mark an order as paid.
+HitPay returns local checkouts to the request's localhost origin. Deployed
+checkouts return to `NEXT_PUBLIC_SITE_URL`.
 
 Use sandbox credentials during development. For production, change
 `HITPAY_API_BASE_URL` to `https://api.hit-pay.com/v1` and use the matching live

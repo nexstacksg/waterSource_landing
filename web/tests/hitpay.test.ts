@@ -7,6 +7,35 @@ import {
   quotationIdFromHitPayReference,
   verifyHitPaySignature,
 } from "@/lib/hitpay";
+import { resolveCheckoutSiteUrl } from "@/lib/site-url";
+
+test("uses local and deployed HitPay return URLs correctly", () => {
+  const originalSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+  process.env.NEXT_PUBLIC_SITE_URL = "https://watersource-website.nexstack.sg/";
+
+  try {
+    assert.equal(
+      resolveCheckoutSiteUrl(
+        new Request("http://localhost:3000/api/shop/checkout"),
+      ),
+      "http://localhost:3000",
+    );
+    assert.equal(
+      resolveCheckoutSiteUrl(
+        new Request(
+          "https://watersource-website.nexstack.sg/api/shop/checkout",
+        ),
+      ),
+      "https://watersource-website.nexstack.sg",
+    );
+  } finally {
+    if (originalSiteUrl === undefined) {
+      delete process.env.NEXT_PUBLIC_SITE_URL;
+    } else {
+      process.env.NEXT_PUBLIC_SITE_URL = originalSiteUrl;
+    }
+  }
+});
 
 test("validates HitPay signatures and WaterSource references", () => {
   process.env.HITPAY_WEBHOOK_SALT = "test-salt";
