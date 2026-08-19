@@ -35,8 +35,8 @@ jobs:
           HITPAY_WEBHOOK_SALT: ${{ secrets.HITPAY_WEBHOOK_SALT }}
           HITPAY_PAYMENT_METHODS: ${{ vars.HITPAY_PAYMENT_METHODS }}
         run: |
-          if [ -z "$DATABASE_URL" ]; then
-            echo "Missing required GitHub secret: NEXT_PUBLIC_API_BASE_URL"
+          if [ -z "$NEXT_PUBLIC_API_BASE_URL" ]; then
+            echo "Missing required GitHub variable: NEXT_PUBLIC_API_BASE_URL"
             exit 1
           fi
 
