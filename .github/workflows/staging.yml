@@ -21,11 +21,6 @@ jobs:
         with:
           node-version: 24.x
 
-      - name: Setup pnpm
-        run: |
-          corepack enable
-          corepack prepare pnpm@10.24.0 --activate
-
       - name: Prepare environment file
         env:
           NEXT_PUBLIC_API_BASE_URL: ${{ vars.NEXT_PUBLIC_API_BASE_URL }}
@@ -53,7 +48,7 @@ jobs:
 
       - name: Install dependencies
         working-directory: ./web
-        run: pnpm install --frozen-lockfile
+        run: npm install
 
       - name: Install PM2
         run: |
@@ -66,7 +61,7 @@ jobs:
           set -a
           source .env.local
           set +a
-          pnpm run build
+          npm run build
 
       - name: Check PM2 status before
         run: pm2 status || true
