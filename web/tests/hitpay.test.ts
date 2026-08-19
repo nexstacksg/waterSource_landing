@@ -17,14 +17,30 @@ test("uses local and deployed HitPay return URLs correctly", () => {
     assert.equal(
       resolveCheckoutSiteUrl(
         new Request("http://localhost:3000/api/shop/checkout"),
+        "development",
       ),
       "http://localhost:3000",
+    );
+    assert.equal(
+      resolveCheckoutSiteUrl(
+        new Request("http://localhost:3000/api/shop/checkout"),
+        "production",
+      ),
+      "https://watersource-website.nexstack.sg",
+    );
+    assert.equal(
+      resolveCheckoutSiteUrl(
+        new Request("https://localhost:3000/api/shop/checkout"),
+        "development",
+      ),
+      "https://watersource-website.nexstack.sg",
     );
     assert.equal(
       resolveCheckoutSiteUrl(
         new Request(
           "https://watersource-website.nexstack.sg/api/shop/checkout",
         ),
+        "production",
       ),
       "https://watersource-website.nexstack.sg",
     );
