@@ -6,6 +6,7 @@ import {
   type ShopProduct,
 } from "@/lib/shop";
 import { createHitPayPaymentRequest, isHitPayConfigured } from "@/lib/hitpay";
+import { nextQuotationNumber } from "@/lib/quotation-number";
 import { resolveCheckoutSiteUrl } from "@/lib/site-url";
 
 type ApiRecord = { id: number; [key: string]: unknown };
@@ -79,17 +80,29 @@ export async function POST(request: Request) {
       );
     }
 
-    const productsResponse = await fetch(`${API_BASE_URL}/products`, {
-      headers: { Accept: "application/json" },
-      cache: "no-store",
-    });
+    const [productsResponse, quotationsResponse] = await Promise.all([
+      fetch(`${API_BASE_URL}/products`, {
+        headers: { Accept: "application/json" },
+        cache: "no-store",
+      }),
+      fetch(`${API_BASE_URL}/quotations`, {
+        headers: { Accept: "application/json" },
+        cache: "no-store",
+      }),
+    ]);
 
     if (!productsResponse.ok) {
       throw new Error(`Product API returned ${productsResponse.status}`);
     }
+    if (!quotationsResponse.ok) {
+      throw new Error(`Quotation API returned ${quotationsResponse.status}`);
+    }
 
     const productPayload = (await productsResponse.json()) as {
       data?: ShopProduct[];
+    };
+    const quotationsPayload = (await quotationsResponse.json()) as {
+      data?: Array<{ quotationNumber?: string | null }>;
     };
     const products = new Map(
       (productPayload.data ?? [])
@@ -123,7 +136,10 @@ export async function POST(request: Request) {
     const now = new Date();
     const validUntil = new Date(now);
     validUntil.setDate(validUntil.getDate() + 7);
-    const quotationNumber = `WEB-${now.toISOString().slice(0, 10).replaceAll("-", "")}-${crypto.randomUUID().slice(0, 8).toUpperCase()}`;
+    const quotationNumber = nextQuotationNumber(
+      quotationsPayload.data ?? [],
+      now,
+    );
     const quotationPayload = await createApiRecord<ApiRecord>("/quotations", {
       quotationNumber,
       status: "sent",

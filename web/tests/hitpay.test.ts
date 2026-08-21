@@ -7,7 +7,27 @@ import {
   quotationIdFromHitPayReference,
   verifyHitPaySignature,
 } from "@/lib/hitpay";
+import { nextQuotationNumber } from "@/lib/quotation-number";
 import { resolveCheckoutSiteUrl } from "@/lib/site-url";
+
+test("uses the Evergreen quotation number sequence", () => {
+  const date = new Date(2026, 7, 21);
+
+  assert.equal(
+    nextQuotationNumber(
+      [
+        { quotationNumber: "Q-2026-0007" },
+        { quotationNumber: "Q-2026-0002" },
+        { quotationNumber: "WEB-20260819-49625068" },
+        { quotationNumber: "Q-2025-0099" },
+        { quotationNumber: null },
+      ],
+      date,
+    ),
+    "Q-2026-0008",
+  );
+  assert.equal(nextQuotationNumber([], date), "Q-2026-0001");
+});
 
 test("uses local and deployed HitPay return URLs correctly", () => {
   const originalSiteUrl = process.env.NEXT_PUBLIC_SITE_URL;
