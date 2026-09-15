@@ -26,6 +26,10 @@ export type CartItem = {
   quantity: number;
 };
 
+export function isAppointmentProduct(product: ShopProduct) {
+  return (product.category?.trim().toLowerCase() ?? "").includes("appointment");
+}
+
 export function parsePrice(price: string | null) {
   if (!price) return 0;
   const parsed = Number(price.replace(/[^0-9.-]+/g, ""));

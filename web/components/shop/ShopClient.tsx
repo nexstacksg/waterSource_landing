@@ -5,6 +5,7 @@ import {
   API_BASE_URL,
   formatPrice,
   getProductImages,
+  isAppointmentProduct,
   parsePrice,
   type CartItem,
   type ShopProduct,
@@ -49,7 +50,11 @@ export default function ShopClient() {
         if (!response.ok)
           throw new Error(`Product API returned ${response.status}`);
         const payload = (await response.json()) as { data?: ShopProduct[] };
-        setProducts((payload.data ?? []).filter((product) => product.active));
+        setProducts(
+          (payload.data ?? []).filter(
+            (product) => product.active && !isAppointmentProduct(product),
+          ),
+        );
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError")
           return;
