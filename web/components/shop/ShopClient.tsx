@@ -4,6 +4,8 @@ import { useEffect, useMemo, useState, type FormEvent } from "react";
 import ProductAvailability from "./ProductAvailability";
 import ProductReviews from "./ProductReviews";
 import { useProductReviews } from "./useProductReviews";
+import { useShopAuth } from "./useShopAuth";
+import PurchaseButton from "./PurchaseButton";
 import {
   API_BASE_URL,
   formatPrice,
@@ -26,6 +28,7 @@ const CART_STORAGE_KEY = "watersource-shop-cart";
 
 export default function ShopClient() {
   const reviews = useProductReviews();
+  const auth = useShopAuth();
   const [products, setProducts] = useState<ShopProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
@@ -152,7 +155,8 @@ export default function ShopClient() {
     0,
   );
 
-  function addToCart(productId: number) {
+  async function addToCart(productId: number) {
+    if (!(await auth.requireSignIn())) return;
     setCart((current) => {
       const existing = current.find((item) => item.productId === productId);
       return existing
@@ -167,7 +171,8 @@ export default function ShopClient() {
     setSelectedProduct(null);
   }
 
-  function updateQuantity(productId: number, quantity: number) {
+  async function updateQuantity(productId: number, quantity: number) {
+    if (quantity > 0 && !(await auth.requireSignIn())) return;
     setCart((current) =>
       quantity < 1
         ? current.filter((item) => item.productId !== productId)
@@ -186,9 +191,10 @@ export default function ShopClient() {
 
   async function submitCheckout(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = new FormData(event.currentTarget);
+    if (!(await auth.requireSignIn())) return;
     setSubmitting(true);
     setCheckoutError("");
-    const form = new FormData(event.currentTarget);
 
     try {
       const response = await fetch("/api/shop/checkout", {
@@ -365,13 +371,13 @@ export default function ShopClient() {
                       </p>
                       <div className="ws-product-buy">
                         <b>{product.purchasePrice || "Enquire for price"}</b>
-                        <button
-                          disabled={!product.purchasePrice}
+                        <PurchaseButton
+                          status={auth.status}
+                          unavailable={!product.purchasePrice}
                           onClick={() => addToCart(product.id)}
-                          type="button"
                         >
                           Add to cart <span>+</span>
-                        </button>
+                        </PurchaseButton>
                       </div>
                     </div>
                   </article>
@@ -466,15 +472,15 @@ export default function ShopClient() {
                   {selectedProduct.warrantySummary}
                 </p>
               )}
-              <button
+              <PurchaseButton
                 className="ws-primary-button"
-                disabled={!selectedProduct.purchasePrice}
+                status={auth.status}
+                unavailable={!selectedProduct.purchasePrice}
                 onClick={() => addToCart(selectedProduct.id)}
-                type="button"
               >
                 Add to cart ·{" "}
                 {selectedProduct.purchasePrice || "Price unavailable"}
-              </button>
+              </PurchaseButton>
             </div>
           </section>
         </div>
@@ -621,13 +627,15 @@ export default function ShopClient() {
                     <b>{formatPrice(cartTotal)}</b>
                   </div>
                   <p>Secure payment by PayNow or card is handled by HitPay.</p>
-                  <button
+                  <PurchaseButton
                     className="ws-primary-button"
-                    onClick={() => setCheckoutOpen(true)}
-                    type="button"
+                    status={auth.status}
+                    onClick={async () => {
+                      if (await auth.requireSignIn()) setCheckoutOpen(true);
+                    }}
                   >
                     Continue to purchase
-                  </button>
+                  </PurchaseButton>
                   <button
                     className="ws-text-button"
                     onClick={() => setCartOpen(false)}
