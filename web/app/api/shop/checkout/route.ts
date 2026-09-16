@@ -53,16 +53,21 @@ type CheckoutRequest = {
 const MAX_QUANTITY = 10;
 
 export async function POST(request: Request) {
-  if (!isHitPayConfigured()) {
-    return NextResponse.json(
-      { error: "Online payment is not configured yet." },
-      { status: 503 },
-    );
-  }
-
   try {
-    const body = (await request.json()) as CheckoutRequest;
     const account = await getCustomer();
+    if (!account) {
+      return NextResponse.json(
+        { error: "Please sign in to complete your purchase." },
+        { status: 401 },
+      );
+    }
+    if (!isHitPayConfigured()) {
+      return NextResponse.json(
+        { error: "Online payment is not configured yet." },
+        { status: 503 },
+      );
+    }
+    const body = (await request.json()) as CheckoutRequest;
     const accountName = account
       ? [account.firstName, account.lastName].filter(Boolean).join(" ")
       : "";

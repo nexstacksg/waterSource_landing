@@ -76,7 +76,7 @@ export default function ProductReviewForm({
   if (auth === "guest")
     return (
       <p className="ws-review-signin">
-        <Link href="/portal/login">Sign in</Link> to leave a review.
+        <Link href="/portal/login?next=shop">Sign in</Link> to leave a review.
       </p>
     );
   if (success)
