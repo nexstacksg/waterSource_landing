@@ -8,6 +8,7 @@ import {
 import { createHitPayPaymentRequest, isHitPayConfigured } from "@/lib/hitpay";
 import { nextQuotationNumber } from "@/lib/quotation-number";
 import { resolveCheckoutSiteUrl } from "@/lib/site-url";
+import { getCustomer } from "@/lib/customer-auth";
 
 type ApiRecord = { id: number; [key: string]: unknown };
 
@@ -61,9 +62,13 @@ export async function POST(request: Request) {
 
   try {
     const body = (await request.json()) as CheckoutRequest;
-    const name = body.customer?.name?.trim() ?? "";
-    const email = body.customer?.email?.trim() ?? "";
-    const phone = body.customer?.phone?.trim() ?? "";
+    const account = await getCustomer();
+    const accountName = account
+      ? [account.firstName, account.lastName].filter(Boolean).join(" ")
+      : "";
+    const name = accountName || body.customer?.name?.trim() || "";
+    const email = account?.email || body.customer?.email?.trim() || "";
+    const phone = account?.phone || body.customer?.phone?.trim() || "";
     const location = body.customer?.location?.trim() ?? "";
     const customerNotes = body.customer?.notes?.trim() ?? "";
     const items = (body.items ?? []).filter(
@@ -150,6 +155,7 @@ export async function POST(request: Request) {
       total: total.toFixed(2),
       notes,
       deliveryAddress: location || null,
+      ...(account?.contactId ? { contactId: account.contactId } : {}),
       paymentTerms: "Payment required before fulfilment",
       sentAt: now.toISOString(),
       promotionsJson: [],

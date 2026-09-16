@@ -19,6 +19,8 @@ export type ShopProduct = {
   specsJson: ProductSpec[];
   warrantySummary: string | null;
   active: boolean;
+  stockCount?: number | null;
+  stockStatus?: "in_stock" | "low_stock" | "out_of_stock" | "on_request" | null;
 };
 
 export type CartItem = {

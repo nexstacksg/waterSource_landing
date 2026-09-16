@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useState, type FormEvent } from "react";
+import ProductAvailability from "./ProductAvailability";
+import ProductReviews from "./ProductReviews";
+import { useProductReviews } from "./useProductReviews";
 import {
   API_BASE_URL,
   formatPrice,
@@ -22,6 +25,7 @@ type CheckoutResult = {
 const CART_STORAGE_KEY = "watersource-shop-cart";
 
 export default function ShopClient() {
+  const reviews = useProductReviews();
   const [products, setProducts] = useState<ShopProduct[]>([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState("");
@@ -353,6 +357,8 @@ export default function ShopClient() {
                         )}
                       </div>
                       <h3>{product.name}</h3>
+                      <ProductAvailability product={product} />
+                      <ProductReviews productId={product.id} state={reviews} />
                       <p>
                         {product.shortDescription ||
                           "Contact us for product details."}
@@ -424,12 +430,19 @@ export default function ShopClient() {
                   ))}
                 </div>
               )}
+              <ProductReviews
+                productId={selectedProduct.id}
+                state={reviews}
+                onCreated={reviews.addReview}
+                detailed
+              />
             </div>
             <div className="ws-product-detail">
               <p className="eyebrow">
                 {selectedProduct.category || "WaterSource"}
               </p>
               <h2>{selectedProduct.name}</h2>
+              <ProductAvailability product={selectedProduct} />
               <b className="ws-detail-price">
                 {selectedProduct.purchasePrice || "Enquire for price"}
               </b>
