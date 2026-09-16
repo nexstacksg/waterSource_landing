@@ -1,0 +1,7 @@
+import Link from "next/link";
+import type { CustomerInvoice } from "@/lib/portal-orders";
+
+export default function InvoiceList({ invoices }: { invoices: CustomerInvoice[] }) {
+  if (invoices.length === 0) return <div className="portal-empty-state"><b>No orders linked yet</b><p>Completed purchases made with your customer account will appear here.</p></div>;
+  return <div className="portal-order-list">{invoices.map((invoice) => <article className="portal-order-card" key={invoice.id}><div className="portal-order-card-top"><div><span className="portal-order-label">Invoice {invoice.invoiceNumber}</span><strong>{new Date(invoice.issueDate).toLocaleDateString("en-SG", { day: "numeric", month: "short", year: "numeric" })}</strong></div><span className={`portal-status status-${invoice.status.toLowerCase()}`}>{invoice.status}</span></div><div className="portal-order-card-body"><div className="portal-order-items"><span className="portal-card-kicker">Purchased items</span>{invoice.items.length > 0 ? invoice.items.map((item, index) => <b key={`${item.itemName}-${index}`}>{item.itemName} <small>× {item.quantity}</small></b>) : <b>WaterSource purchase</b>}</div><strong>S${Number(invoice.total).toLocaleString("en-SG", { maximumFractionDigits: 0 })}</strong></div><div className="portal-order-card-bottom"><span>{invoice.deliveryAddress || "No delivery address recorded"}</span><Link href={`/portal/orders/${invoice.id}`}>View order <span>→</span></Link></div></article>)}</div>;
+}
