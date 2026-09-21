@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, type FormEvent } from "react";
+import { useState, type FormEvent } from "react";
 import type { ProductReview } from "@/lib/product-reviews";
+import { useCustomerSession } from "@/components/CustomerSession";
 
 export default function ProductReviewForm({
   productId,
@@ -11,34 +12,12 @@ export default function ProductReviewForm({
   productId: number;
   onCreated?: (review: ProductReview) => void;
 }) {
-  const [auth, setAuth] = useState<"loading" | "signed-in" | "guest" | "error">(
-    "loading",
-  );
+  const { status: auth } = useCustomerSession();
   const [rating, setRating] = useState(0);
   const [review, setReview] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    const controller = new AbortController();
-    fetch("/api/customer-auth/me", { signal: controller.signal })
-      .then(async (response) => {
-        if (response.status === 401) {
-          setAuth("guest");
-          return;
-        }
-        if (!response.ok) throw new Error("Account unavailable");
-        const payload = await response.json();
-        const customer =
-          payload.data?.customer ?? payload.data ?? payload.customer;
-        setAuth(customer?.id ? "signed-in" : "guest");
-      })
-      .catch(() => {
-        if (!controller.signal.aborted) setAuth("error");
-      });
-    return () => controller.abort();
-  }, []);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
