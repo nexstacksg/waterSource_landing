@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { useRouter } from "next/navigation";
+import { refreshCustomerSession } from "@/components/CustomerSession";
 
 export default function PortalAuthForm({ mode }: { mode: "login" | "signup" }) {
   const router = useRouter();
@@ -50,6 +51,7 @@ export default function PortalAuthForm({ mode }: { mode: "login" | "signup" }) {
         setSubmitted(false);
         return;
       }
+      await refreshCustomerSession(true);
       const returnToShop =
         new URLSearchParams(window.location.search).get("next") === "shop";
       router.replace(returnToShop ? "/shop" : "/portal");

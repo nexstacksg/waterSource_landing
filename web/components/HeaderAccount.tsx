@@ -3,25 +3,16 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-
-type Customer = { firstName?: string; lastName?: string; email?: string };
+import { clearCustomerSession, useCustomerSession } from "./CustomerSession";
 
 export default function HeaderAccount({ onOpen }: { onOpen?: () => void }) {
-  const [customer, setCustomer] = useState<Customer | null>(null);
-  const [loaded, setLoaded] = useState(false);
+  const { customer, status } = useCustomerSession();
+  const loaded = status !== "loading";
+  const [signingOut, setSigningOut] = useState(false);
+  const [signOutError, setSignOutError] = useState("");
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   const router = useRouter();
-
-  useEffect(() => {
-    fetch("/api/customer-auth/me", { headers: { Accept: "application/json" } })
-      .then(async (response) => (response.ok ? response.json() : null))
-      .then((payload: { data?: Customer; customer?: Customer } | null) =>
-        setCustomer(payload?.data ?? payload?.customer ?? null),
-      )
-      .catch(() => setCustomer(null))
-      .finally(() => setLoaded(true));
-  }, []);
 
   useEffect(() => {
     function closeOnOutside(event: MouseEvent) {
@@ -43,11 +34,23 @@ export default function HeaderAccount({ onOpen }: { onOpen?: () => void }) {
   }, [open]);
 
   async function signOut() {
-    await fetch("/api/customer-auth/logout", { method: "POST" });
-    setCustomer(null);
-    setOpen(false);
-    router.push("/");
-    router.refresh();
+    if (signingOut) return;
+    setSigningOut(true);
+    setSignOutError("");
+    try {
+      const response = await fetch("/api/customer-auth/logout", {
+        method: "POST",
+      });
+      if (!response.ok) throw new Error("Sign out failed");
+      clearCustomerSession();
+      setOpen(false);
+      router.push("/");
+      router.refresh();
+    } catch {
+      setSignOutError("Could not sign out. Please try again.");
+    } finally {
+      setSigningOut(false);
+    }
   }
 
   const name = customer
@@ -103,9 +106,10 @@ export default function HeaderAccount({ onOpen }: { onOpen?: () => void }) {
               <Link href="/portal/address" onClick={() => setOpen(false)}>
                 Delivery address
               </Link>
-              <button onClick={signOut} type="button">
-                Sign out
+              <button onClick={signOut} disabled={signingOut} type="button">
+                {signingOut ? "Signing out…" : "Sign out"}
               </button>
+              {signOutError && <p role="alert">{signOutError}</p>}
             </>
           ) : (
             <>
