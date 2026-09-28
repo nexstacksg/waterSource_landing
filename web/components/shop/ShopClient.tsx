@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import ProductAvailability from "./ProductAvailability";
 import ProductReviews from "./ProductReviews";
 import { useProductReviews } from "./useProductReviews";
@@ -37,7 +37,7 @@ export default function ShopClient() {
   const [cart, setCart] = useState<CartItem[]>([]);
   const [cartReady, setCartReady] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
-  const [checkoutOpen, setCheckoutOpen] = useState(false);
+  const paymentPending = useRef(false);
   const [selectedProduct, setSelectedProduct] = useState<ShopProduct | null>(
     null,
   );
@@ -189,25 +189,18 @@ export default function ShopClient() {
     setSelectedProduct(product);
   }
 
-  async function submitCheckout(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    if (!(await auth.requireSignIn())) return;
+  async function submitCheckout() {
+    if (paymentPending.current) return;
+    paymentPending.current = true;
     setSubmitting(true);
     setCheckoutError("");
 
     try {
+      if (!(await auth.requireSignIn())) return;
       const response = await fetch("/api/shop/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          customer: {
-            name: form.get("name"),
-            email: form.get("email"),
-            phone: form.get("phone"),
-            location: form.get("location"),
-            notes: form.get("notes"),
-          },
           items: cart,
         }),
       });
@@ -235,6 +228,7 @@ export default function ShopClient() {
           : "Could not submit your request.",
       );
     } finally {
+      paymentPending.current = false;
       setSubmitting(false);
     }
   }
@@ -498,7 +492,7 @@ export default function ShopClient() {
             <div className="ws-cart-head">
               <div>
                 <p className="eyebrow">Your selection</p>
-                <h2>{checkoutOpen ? "Purchase details" : "Your cart"}</h2>
+                <h2>Your cart</h2>
               </div>
               <button
                 className="ws-close"
@@ -510,65 +504,7 @@ export default function ShopClient() {
               </button>
             </div>
 
-            {checkoutOpen ? (
-              <form className="ws-checkout-form" onSubmit={submitCheckout}>
-                <button
-                  className="ws-back-button"
-                  onClick={() => setCheckoutOpen(false)}
-                  type="button"
-                >
-                  ← Back to cart
-                </button>
-                <p className="ws-checkout-note">
-                  You’ll continue to HitPay’s secure checkout to complete
-                  payment by PayNow or card.
-                </p>
-                <label>
-                  Full name
-                  <input autoComplete="name" name="name" required />
-                </label>
-                <label>
-                  Email
-                  <input
-                    autoComplete="email"
-                    name="email"
-                    required
-                    type="email"
-                  />
-                </label>
-                <label>
-                  Phone
-                  <input autoComplete="tel" name="phone" required type="tel" />
-                </label>
-                <label>
-                  Delivery area or postal code
-                  <input autoComplete="postal-code" name="location" />
-                </label>
-                <label>
-                  Anything we should know?
-                  <textarea name="notes" rows={3} />
-                </label>
-                {checkoutError && (
-                  <p className="ws-form-error" role="alert">
-                    {checkoutError}
-                  </p>
-                )}
-                <div className="ws-checkout-total">
-                  <span>Estimated total</span>
-                  <b>{formatPrice(cartTotal)}</b>
-                </div>
-                <button
-                  className="ws-primary-button"
-                  disabled={submitting}
-                  type="submit"
-                >
-                  {submitting ? "Opening HitPay…" : "Pay securely with HitPay"}
-                </button>
-                <small>
-                  Payment is recorded only after HitPay securely confirms it.
-                </small>
-              </form>
-            ) : cartLines.length === 0 ? (
+            {cartLines.length === 0 ? (
               <div className="ws-empty-cart">
                 <CartIcon />
                 <h3>Your cart is ready for something good.</h3>
@@ -627,14 +563,19 @@ export default function ShopClient() {
                     <b>{formatPrice(cartTotal)}</b>
                   </div>
                   <p>Secure payment by PayNow or card is handled by HitPay.</p>
+                  <p>We’ll use your account contact and delivery details.</p>
+                  {checkoutError && (
+                    <p className="ws-form-error" role="alert">
+                      {checkoutError}
+                    </p>
+                  )}
                   <PurchaseButton
                     className="ws-primary-button"
                     status={auth.status}
-                    onClick={async () => {
-                      if (await auth.requireSignIn()) setCheckoutOpen(true);
-                    }}
+                    unavailable={submitting}
+                    onClick={submitCheckout}
                   >
-                    Continue to purchase
+                    {submitting ? "Opening secure payment…" : "Pay now"}
                   </PurchaseButton>
                   <button
                     className="ws-text-button"
