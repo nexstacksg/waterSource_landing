@@ -74,7 +74,8 @@ export async function POST(request: Request) {
     const name = accountName || body.customer?.name?.trim() || "";
     const email = account?.email || body.customer?.email?.trim() || "";
     const phone = account?.phone || body.customer?.phone?.trim() || "";
-    const location = body.customer?.location?.trim() ?? "";
+    const location =
+      account.address?.trim() || body.customer?.location?.trim() || "";
     const customerNotes = body.customer?.notes?.trim() ?? "";
     const items = (body.items ?? []).filter(
       (item) =>
