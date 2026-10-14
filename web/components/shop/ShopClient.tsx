@@ -106,20 +106,32 @@ export default function ShopClient() {
     };
   }, [cartOpen, selectedProduct]);
 
+  const shopProducts = useMemo(
+    () =>
+      products.filter(
+        (product) =>
+          getProductImages(product).some((image) => image.trim().length > 0) &&
+          parsePrice(product.purchasePrice) > 0,
+      ),
+    [products],
+  );
+
   const categories = useMemo(
     () =>
       [
         "All products",
         ...Array.from(
-          new Set(products.map((product) => product.category).filter(Boolean)),
+          new Set(
+            shopProducts.map((product) => product.category).filter(Boolean),
+          ),
         ).sort(),
       ] as string[],
-    [products],
+    [shopProducts],
   );
 
   const filteredProducts = useMemo(() => {
     const search = query.trim().toLowerCase();
-    return products.filter((product) => {
+    return shopProducts.filter((product) => {
       const matchesCategory =
         category === "All products" || product.category === category;
       const matchesSearch =
@@ -134,7 +146,7 @@ export default function ShopClient() {
           .some((value) => value?.toLowerCase().includes(search));
       return matchesCategory && matchesSearch;
     });
-  }, [category, products, query]);
+  }, [category, shopProducts, query]);
 
   const cartLines = useMemo(
     () =>
@@ -446,7 +458,7 @@ export default function ShopClient() {
               <b className="ws-detail-price">
                 {selectedProduct.purchasePrice || "Enquire for price"}
               </b>
-              <p>
+              <p className="ws-product-description">
                 {selectedProduct.fullDescription ||
                   selectedProduct.shortDescription}
               </p>

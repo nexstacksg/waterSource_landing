@@ -467,6 +467,10 @@
   font-size: 14px;
   line-height: 1.7;
 }
+.ws-product-description {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
 .ws-specs {
   display: grid;
   grid-template-columns: 1fr 1fr;
