@@ -8,7 +8,7 @@ export default function HiddenProblem() {
         style={
           {
             "--hidden-problem-bg":
-              "url('https://watersource.com.sg/wp-content/uploads/2022/09/SCCC-Talk-21-June-2015-05.jpg')",
+              "url('https://wp.watersource.com.sg/wp-content/uploads/2022/09/SCCC-Talk-21-June-2015-05.jpg')",
           } as CSSProperties
         }
       >

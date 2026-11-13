@@ -15,7 +15,7 @@ export default function Testimonials() {
           <article className="testimonial-card">
             <img
               alt="Eczema"
-              src="https://watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-3.jpg"
+              src="https://wp.watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-3.jpg"
             />
             <div>
               <b>Eczema</b>
@@ -36,7 +36,7 @@ export default function Testimonials() {
           <article className="testimonial-card">
             <img
               alt="Gastric, Arthritis"
-              src="https://watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-4.jpg"
+              src="https://wp.watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-4.jpg"
             />
             <div>
               <b>Gastric, Arthritis</b>
@@ -54,7 +54,7 @@ export default function Testimonials() {
           <article className="testimonial-card">
             <img
               alt="Acne"
-              src="https://watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size.jpg"
+              src="https://wp.watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size.jpg"
             />
             <div>
               <b>Acne</b>
@@ -79,7 +79,7 @@ export default function Testimonials() {
           <article className="testimonial-card">
             <img
               alt="Chronic Back Pain"
-              src="https://watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-18.jpg"
+              src="https://wp.watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-18.jpg"
             />
             <div>
               <b>Chronic Back Pain</b>
@@ -98,7 +98,7 @@ export default function Testimonials() {
           <article className="testimonial-card">
             <img
               alt="High Blood Pressure"
-              src="https://watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-6.jpg"
+              src="https://wp.watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-6.jpg"
             />
             <div>
               <b>High Blood Pressure</b>
@@ -119,7 +119,7 @@ export default function Testimonials() {
           <article className="testimonial-card">
             <img
               alt="Constipation, Insomnia"
-              src="https://watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-10.jpg"
+              src="https://wp.watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-10.jpg"
             />
             <div>
               <b>Constipation, Insomnia</b>

@@ -23,7 +23,7 @@ export default function Programs() {
             <div className="program-tile">
               <img
                 alt="Mrs Wee founder portrait"
-                src="https://watersource.com.sg/wp-content/uploads/2023/02/watersource-1080-template-38-800x800.png"
+                src="https://wp.watersource.com.sg/wp-content/uploads/2023/02/watersource-1080-template-38-800x800.png"
               />
               <b>Meet Mrs Wee's Water Mission</b>
               <span>Founder Journey</span>
@@ -31,7 +31,7 @@ export default function Programs() {
             <div className="program-tile">
               <img
                 alt="GEM 9000"
-                src="https://watersource.com.sg/wp-content/uploads/2023/10/GEM-9000-Turbo-Under-Sink-9-Plates-1-430x430.jpg"
+                src="https://wp.watersource.com.sg/wp-content/uploads/2023/10/GEM-9000-Turbo-Under-Sink-9-Plates-1-430x430.jpg"
               />
               <b>Upgrade Your Home Water</b>
               <span>Home Wellness</span>
@@ -39,7 +39,7 @@ export default function Programs() {
             <div className="program-tile">
               <img
                 alt="Awards"
-                src="https://watersource.com.sg/wp-content/uploads/2022/09/Enterprise-Award-April-2014-03.jpg"
+                src="https://wp.watersource.com.sg/wp-content/uploads/2022/09/Enterprise-Award-April-2014-03.jpg"
               />
               <b>Trusted Singapore Wellness</b>
               <span>Proof &amp; Recognition</span>
@@ -47,7 +47,7 @@ export default function Programs() {
             <div className="program-tile">
               <img
                 alt="H001"
-                src="https://watersource.com.sg/wp-content/uploads/2022/09/H001-Alkaline-Hydrogen-Rich-Water-Purifier-1-1-430x430.jpg"
+                src="https://wp.watersource.com.sg/wp-content/uploads/2022/09/H001-Alkaline-Hydrogen-Rich-Water-Purifier-1-1-430x430.jpg"
               />
               <b>Experience Hydrogen-Rich Water</b>
               <span>Daily Drinking</span>
@@ -55,7 +55,7 @@ export default function Programs() {
             <div className="program-tile">
               <img
                 alt="Customer gathering"
-                src="https://watersource.com.sg/wp-content/uploads/2022/09/Customers-Gathering-Oct-2014-01.jpg"
+                src="https://wp.watersource.com.sg/wp-content/uploads/2022/09/Customers-Gathering-Oct-2014-01.jpg"
               />
               <b>Free Live Water Demo</b>
               <span>Showroom Experience</span>
@@ -71,7 +71,7 @@ export default function Programs() {
             <div className="program-tile">
               <img
                 alt="Customer wellness story"
-                src="https://watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-4.jpg"
+                src="https://wp.watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-4.jpg"
               />
               <b>Customer Wellness Stories</b>
               <span>Real Experiences</span>

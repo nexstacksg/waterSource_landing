@@ -8,7 +8,7 @@ export default function Header() {
           <Link className="brand" href="/">
             <img
               alt="WaterSource logo"
-              src="https://watersource.com.sg/wp-content/uploads/2022/08/logo.png"
+              src="https://wp.watersource.com.sg/wp-content/uploads/2022/08/logo.png"
             />
           </Link>
           <nav className="links">

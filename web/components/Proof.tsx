@@ -56,7 +56,7 @@ export default function Proof() {
             <article className="authority-card">
               <img
                 alt="WaterSource enterprise award"
-                src="https://watersource.com.sg/wp-content/uploads/2022/09/Enterprise-Award-April-2014-03.jpg"
+                src="https://wp.watersource.com.sg/wp-content/uploads/2022/09/Enterprise-Award-April-2014-03.jpg"
               />
               <div className="authority-card-copy">
                 <span className="badge">
@@ -76,7 +76,7 @@ export default function Proof() {
             <article className="authority-card">
               <img
                 alt="Mrs Wee discussion"
-                src="https://watersource.com.sg/wp-content/uploads/2023/02/watersource-1080-template-38-800x800.png"
+                src="https://wp.watersource.com.sg/wp-content/uploads/2023/02/watersource-1080-template-38-800x800.png"
               />
               <div className="authority-card-copy">
                 <span className="badge">
@@ -92,7 +92,7 @@ export default function Proof() {
             <article className="authority-card">
               <img
                 alt="WaterSource customer gathering"
-                src="https://watersource.com.sg/wp-content/uploads/2022/09/Customers-Gathering-Oct-2014-01.jpg"
+                src="https://wp.watersource.com.sg/wp-content/uploads/2022/09/Customers-Gathering-Oct-2014-01.jpg"
               />
               <div className="authority-card-copy">
                 <span className="badge">

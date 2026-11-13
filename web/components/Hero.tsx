@@ -5,20 +5,20 @@ export default function Hero() {
         <div aria-hidden="true" className="hero-collage">
           <img
             alt=""
-            src="https://watersource.com.sg/wp-content/uploads/2022/09/Customers-Gathering-Oct-2014-01.jpg"
+            src="https://wp.watersource.com.sg/wp-content/uploads/2022/09/Customers-Gathering-Oct-2014-01.jpg"
           />
           <img
             alt=""
-            src="https://watersource.com.sg/wp-content/uploads/2022/09/Enterprise-Award-April-2014-03.jpg"
+            src="https://wp.watersource.com.sg/wp-content/uploads/2022/09/Enterprise-Award-April-2014-03.jpg"
           />
           <img alt="" src="/assets/hero-water-glasses.jpg" />
           <img
             alt=""
-            src="https://watersource.com.sg/wp-content/uploads/2023/02/watersource-1080-template-38-800x800.png"
+            src="https://wp.watersource.com.sg/wp-content/uploads/2023/02/watersource-1080-template-38-800x800.png"
           />
           <img
             alt=""
-            src="https://watersource.com.sg/wp-content/uploads/2021/08/drinks-18.jpg"
+            src="https://wp.watersource.com.sg/wp-content/uploads/2021/08/drinks-18.jpg"
           />
           <img
             alt=""
@@ -26,27 +26,27 @@ export default function Hero() {
           />
           <img
             alt=""
-            src="https://watersource.com.sg/wp-content/uploads/2023/10/GEM-9090NT-Turbo-Alkaline-Hydrogen-Functional-Water-Ionizer-1-430x430.jpg"
+            src="https://wp.watersource.com.sg/wp-content/uploads/2023/10/GEM-9090NT-Turbo-Alkaline-Hydrogen-Functional-Water-Ionizer-1-430x430.jpg"
           />
           <img
             alt=""
-            src="https://watersource.com.sg/wp-content/uploads/2023/10/GEM-9000-Turbo-Under-Sink-9-Plates-1-430x430.jpg"
+            src="https://wp.watersource.com.sg/wp-content/uploads/2023/10/GEM-9000-Turbo-Under-Sink-9-Plates-1-430x430.jpg"
           />
           <img
             alt=""
-            src="https://watersource.com.sg/wp-content/uploads/2022/09/H001-Alkaline-Hydrogen-Rich-Water-Purifier-1.jpg"
+            src="https://wp.watersource.com.sg/wp-content/uploads/2022/09/H001-Alkaline-Hydrogen-Rich-Water-Purifier-1.jpg"
           />
           <img
             alt=""
-            src="https://watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-4.jpg"
+            src="https://wp.watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-4.jpg"
           />
           <img
             alt=""
-            src="https://watersource.com.sg/wp-content/uploads/2022/09/Enterprise-Award-April-2014-01.jpg"
+            src="https://wp.watersource.com.sg/wp-content/uploads/2022/09/Enterprise-Award-April-2014-01.jpg"
           />
           <img
             alt=""
-            src="https://watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-3.jpg"
+            src="https://wp.watersource.com.sg/wp-content/uploads/2023/01/169-presentation-size-3.jpg"
           />
         </div>
         <div className="wrap hero-inner">
