@@ -20,7 +20,7 @@ export default function Reviews() {
               <span className="testimonial-avatar">
                 <img
                   alt="Leo customer portrait"
-                  src="/assets/avatar-david-lim-real.png"
+                  src="/assets/avatar-leo.webp"
                 />
               </span>
               <div>
@@ -48,7 +48,7 @@ export default function Reviews() {
               <span className="testimonial-avatar">
                 <img
                   alt="Wendy Yap customer portrait"
-                  src="/assets/avatar-olivia-wong-real.png"
+                  src="/assets/avatar-wendy-yap.webp"
                 />
               </span>
               <div>
@@ -73,7 +73,7 @@ export default function Reviews() {
               <span className="testimonial-avatar">
                 <img
                   alt="Jeremy Loh and Yean Cheong customer portrait"
-                  src="/assets/avatar-james-bella-real.png"
+                  src="/assets/avatar-jeremy-loh-yean-cheong.webp"
                 />
               </span>
               <div>
@@ -99,7 +99,7 @@ export default function Reviews() {
               <span className="testimonial-avatar">
                 <img
                   alt="Jacinta Lee customer portrait"
-                  src="/assets/avatar-priya-raman-real.png"
+                  src="/assets/avatar-jacinta-lee.webp"
                 />
               </span>
               <div>
@@ -124,7 +124,7 @@ export default function Reviews() {
               <span className="testimonial-avatar">
                 <img
                   alt="Dr Toh S.C. female customer portrait"
-                  src="/assets/avatar-priya-raman-real.png"
+                  src="/assets/avatar-dr-toh-sc.webp"
                 />
               </span>
               <div>
@@ -149,7 +149,7 @@ export default function Reviews() {
               <span className="testimonial-avatar">
                 <img
                   alt="Sharon customer portrait"
-                  src="/assets/avatar-marcus-wong-real.png"
+                  src="/assets/avatar-sharon.webp"
                 />
               </span>
               <div>
