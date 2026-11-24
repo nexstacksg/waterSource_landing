@@ -11,7 +11,7 @@ export default function Consultation() {
               the right WaterSource solution for your home, family or company.
             </p>
             <div className="hero-actions">
-              <a className="btn orange" href="tel:+6588606951">
+              <a className="btn orange" href="tel:+6596831343">
                 Speak to a WaterSource specialist
               </a>
             </div>

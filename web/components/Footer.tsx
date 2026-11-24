@@ -18,20 +18,14 @@ export default function Footer() {
           <div>
             <b>Contact</b>
             <p>
-              Tel: 6456 2355
-              <br />
-              Hotline: +65 8860 6951
+              Hotline: +65 9683 1343
               <br />
               Email: info@watersource.com.sg
             </p>
           </div>
           <div>
             <b>Hours</b>
-            <p>
-              Mon–Fri, 8.30am–6.30pm
-              <br />
-              After-office appointment: 9325 6199
-            </p>
+            <p>Mon–Fri, 9am–6pm</p>
           </div>
         </div>
         <div className="wrap disclaimer">

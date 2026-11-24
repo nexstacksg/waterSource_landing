@@ -124,7 +124,7 @@ export default async function PaymentResultPage({ searchParams }: PageProps) {
               </Link>
             )}
             <Link href="/shop">Return to shop</Link>
-            <a href="https://wa.me/6588606951" rel="noreferrer" target="_blank">
+            <a href="https://wa.me/6596831343" rel="noreferrer" target="_blank">
               Contact WaterSource
             </a>
           </div>
