@@ -19,12 +19,12 @@ export default function Reviews() {
             <div className="testimonial-person">
               <span className="testimonial-avatar">
                 <img
-                  alt="Leo customer portrait"
-                  src="/assets/avatar-leo.webp"
+                  alt="Mr Leong customer portrait"
+                  src="/assets/avatar-mr-leong.webp"
                 />
               </span>
               <div>
-                <span className="testimonial-name">Leo</span>
+                <span className="testimonial-name">Mr Leong</span>
                 <span className="testimonial-role">
                   Hydrogen-rich water user
                 </span>
@@ -36,7 +36,7 @@ export default function Reviews() {
               “Drinking hydrogen-rich water is able to assist my body's cells.”
             </h3>
             <p>
-              Leo shared that his diabetes level reduced from 6.5mmol/L to
+              Mr Leong shared that his diabetes level reduced from 6.5mmol/L to
               5.8mmol/L when he consumed 3.8 to 4.2 litres daily, and rose again
               when he lowered his daily intake. He concluded that consistent
               hydrogen-rich water intake helped his body replenish and repair
