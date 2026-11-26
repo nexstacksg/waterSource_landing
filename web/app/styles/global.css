@@ -24,6 +24,9 @@
     .sticky-subnav{top:86px}
     @media(max-width:1180px){.sticky-subnav{top:72px}}
     @media(max-width:980px){.topbar{position:relative}.sticky-subnav{display:none}}
+    main#top > section[id]{scroll-margin-top:144px}
+    @media(max-width:1180px){main#top > section[id]{scroll-margin-top:130px}}
+    @media(max-width:980px){main#top > section[id]{scroll-margin-top:96px}}
     @media(max-width:640px){header .nav{height:72px}.brand img{width:132px}}
     .who-intro{max-width:780px;margin-bottom:34px}
     .who-intro h2{max-width:760px}.who-intro .lead{margin-top:18px;max-width:730px}

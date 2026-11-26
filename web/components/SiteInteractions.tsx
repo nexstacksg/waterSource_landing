@@ -246,13 +246,38 @@ export default function SiteInteractions() {
       );
     });
 
-    if (window.location.hash) {
-      window.requestAnimationFrame(() => {
+    let fragmentScrollFrame = 0;
+
+    function scrollToCurrentFragment() {
+      window.cancelAnimationFrame(fragmentScrollFrame);
+      const { pathname, hash } = window.location;
+      if (pathname !== "/" || !hash) return;
+
+      fragmentScrollFrame = window.requestAnimationFrame(() => {
+        if (
+          window.location.pathname !== pathname ||
+          window.location.hash !== hash
+        )
+          return;
+
         document
-          .querySelector<HTMLElement>(window.location.hash)
-          ?.scrollIntoView();
+          .getElementById(hash.slice(1))
+          ?.scrollIntoView({ behavior: "instant" });
       });
     }
+
+    function restoreSectionOnHistoryTraversal(event: PopStateEvent) {
+      // Native fragment clicks already scroll. History API entries need to
+      // realign after the browser restores their saved scroll position.
+      if (event.state) scrollToCurrentFragment();
+    }
+
+    scrollToCurrentFragment();
+    window.addEventListener("popstate", restoreSectionOnHistoryTraversal);
+    cleanup.push(() => {
+      window.cancelAnimationFrame(fragmentScrollFrame);
+      window.removeEventListener("popstate", restoreSectionOnHistoryTraversal);
+    });
 
     return () => cleanup.forEach((dispose) => dispose());
   }, []);

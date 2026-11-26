@@ -5,6 +5,7 @@ export default function HiddenProblem() {
     <>
       <section
         className="section dark-section hidden-problem-section"
+        id="hidden-problem"
         style={
           {
             "--hidden-problem-bg":

@@ -1,14 +1,16 @@
+import SectionLink from "./SectionLink";
+
 export default function StickySubnav() {
   return (
     <>
       <div className="sticky-subnav">
         <div className="wrap">
-          <a href="#who">Who WaterSource Is For</a>
-          <a href="#about">Rethink Your Water</a>
-          <a href="#founder">Meet Mrs Wee</a>
-          <a href="#method">Discovery Journey</a>
-          <a href="#properties">8 Water Properties</a>
-          <a href="#consultation">Guided Consultation</a>
+          <SectionLink href="#programs">Who WaterSource Is For</SectionLink>
+          <SectionLink href="#hidden-problem">Rethink Your Water</SectionLink>
+          <SectionLink href="#founder">Meet Mrs Wee</SectionLink>
+          <SectionLink href="#method">Discovery Journey</SectionLink>
+          <SectionLink href="#properties">8 Water Properties</SectionLink>
+          <SectionLink href="#consultation">Guided Consultation</SectionLink>
         </div>
       </div>
     </>

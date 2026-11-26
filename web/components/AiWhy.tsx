@@ -1,7 +1,7 @@
 export default function AiWhy() {
   return (
     <>
-      <section className="section ai-why-section">
+      <section className="section ai-why-section" id="bonus">
         <div className="wrap ai-why-wrap">
           <p className="ai-why-kicker">
             Exclusive bonus included with your consultation

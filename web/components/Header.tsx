@@ -1,4 +1,5 @@
 import Link from "next/link";
+import SectionLink from "./SectionLink";
 
 export default function Header() {
   return (
@@ -12,18 +13,18 @@ export default function Header() {
             />
           </Link>
           <nav className="links">
-            <Link href="/#who">Who is this for</Link>
-            <Link href="/#about">About</Link>
-            <Link href="/#founder">Founder</Link>
-            <Link href="/#method">Method</Link>
-            <Link href="/#bonus">Bonuses</Link>
+            <SectionLink href="/#programs">Who is this for</SectionLink>
+            <SectionLink href="/#hidden-problem">About</SectionLink>
+            <SectionLink href="/#founder">Founder</SectionLink>
+            <SectionLink href="/#method">Method</SectionLink>
+            <SectionLink href="/#bonus">Bonuses</SectionLink>
             <Link href="/shop">Shop</Link>
-            <Link href="/#consultation">Consultation</Link>
+            <SectionLink href="/#consultation">Consultation</SectionLink>
           </nav>
           <div className="nav-cta">
-            <Link className="btn dark" href="/#consultation">
+            <SectionLink className="btn dark" href="/#consultation">
               Speak to a WaterSource specialist
-            </Link>
+            </SectionLink>
           </div>
         </div>
       </header>
