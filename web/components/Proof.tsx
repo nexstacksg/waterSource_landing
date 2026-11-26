@@ -2,24 +2,32 @@ const supportingPhotos = [
   {
     src: "https://wp.watersource.com.sg/wp-content/uploads/2022/09/Enterprise-Award-April-2014-03.jpg",
     alt: "WaterSource enterprise award",
+    width: 1200,
+    height: 900,
     title: "Enterprise and award moments",
     caption: "Recognition built on trust and impact.",
   },
   {
     src: "https://wp.watersource.com.sg/wp-content/uploads/2023/02/watersource-1080-template-38-800x800.png",
     alt: "Mrs Wee discussion",
+    width: 800,
+    height: 800,
     title: "Founder conversations and wellness education",
     caption: "Sharing knowledge. Inspiring change.",
   },
   {
     src: "https://wp.watersource.com.sg/wp-content/uploads/2022/09/Customers-Gathering-Oct-2014-01.jpg",
     alt: "WaterSource customer gathering",
+    width: 1046,
+    height: 1200,
     title: "Customer gatherings and community trust",
     caption: "Real connections. Stronger communities.",
   },
   {
     src: "https://sgvisionaries.com/wp-content/uploads/2025/05/img-20250526-wa0017.jpg",
     alt: "WaterSource article supporting image",
+    width: 1024,
+    height: 836,
     title: "Healthy aging mission, led by Mrs Wee",
     caption: "Empowering lives every single day.",
   },
@@ -62,15 +70,23 @@ export default function Proof() {
           </figcaption>
         </figure>
         <div className="authority-stack">
-          {supportingPhotos.map(({ src, alt, title, caption }) => (
-            <figure className="authority-card" key={src}>
-              <img alt={alt} className="authority-photo" src={src} />
-              <figcaption className="authority-card-copy">
-                <h3>{title}</h3>
-                <p>{caption}</p>
-              </figcaption>
-            </figure>
-          ))}
+          {supportingPhotos.map(
+            ({ src, alt, width, height, title, caption }) => (
+              <figure className="authority-card" key={src}>
+                <img
+                  alt={alt}
+                  className="authority-photo"
+                  src={src}
+                  width={width}
+                  height={height}
+                />
+                <figcaption className="authority-card-copy">
+                  <h3>{title}</h3>
+                  <p>{caption}</p>
+                </figcaption>
+              </figure>
+            ),
+          )}
         </div>
       </div>
     </section>

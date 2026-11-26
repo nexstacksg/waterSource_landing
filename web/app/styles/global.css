@@ -334,6 +334,7 @@
 
     #proof .authority-stack {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-rows: 1fr;
     }
 
     #proof .authority-feature,
@@ -352,13 +353,13 @@
       width: 100%;
       height: auto;
       aspect-ratio: 4 / 3;
-      object-fit: contain;
-      background: #eaf2f5;
+      object-fit: cover;
     }
 
-    #proof .authority-feature .authority-photo {
-      flex: 1 0 auto;
-      object-fit: cover;
+    @media (width > 980px) {
+      #proof .authority-feature .authority-photo {
+        flex: 1 0 auto;
+      }
     }
 
     #proof .authority-feature-copy,
@@ -421,7 +422,7 @@
       }
 
       #proof .authority-stack {
-        grid-template-columns: minmax(0, 1fr);
+        display: contents;
       }
 
       #proof .authority-feature-copy {
